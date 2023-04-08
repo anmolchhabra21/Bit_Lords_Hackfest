@@ -33,21 +33,23 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const StudentProfile = () => {
   let username = null;
+
   const [filterData, setFilterData] = useState([]);
 
   let dataArr = [];
   const getDocSnap = async () => {
     let fetbranch;
     let fetcgpa;
+    let appliedFor = null;
 
     const docRef = doc(db, "student", username.uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
       fetbranch = docSnap.data().branch;
-      console.log("Document data:", fetbranch);
+      
       fetcgpa = docSnap.data().cgpa;
-      console.log("Document data:", fetcgpa);
+      appliedFor = docSnap.data().appliedFor;
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
@@ -63,32 +65,28 @@ const StudentProfile = () => {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      // setFilterData(doc.data());
-      // fetdata = doc.data();
-      dataArr.push(doc.data());
+      let valu = doc.data();
+      valu["compid"] = doc.id;
+      valu["studid"] = username.uid;
+      let applied = false;
+      if(appliedFor){
+        applied = appliedFor.includes(doc.id);
+      }
+      valu["applied"] = applied;
+      dataArr.push(valu);
+      
     });
     setFilterData(dataArr);
-    console.log("there", dataArr);
   };
-  // setFilterData(dataArr);
-  console.log(filterData);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        // import { collection, query, where, getDocs } from "firebase/firestore";
-        // import { doc, getDoc } from "firebase/firestore";
-        // Data!
         username = user;
-        // setMyArr(dataArr);
         getDocSnap();
-        // console.log(myArr);
       }
     });
 
-    // console.log(myArr);
-    // setFilterData(fetdata);
-    // console.log("hello ",filterData);
   }, []);
 
   return (
@@ -111,13 +109,16 @@ const StudentProfile = () => {
           borderRadius: "10px",
         }}
       >
-        {filterData ? 
+        {filterData.length ? 
           filterData.map((data)=>(
             <StudentCard
             companyName={data.companyName}
             salary={data.salary}
             domain={data.domain}
             imageURL={data.imageURL}
+            companyid = {data.compid}
+            studentid = {data.studid}
+            applied = {data.applied}
           />
           ))
         : <h2>No Eligible Company Exists</h2>}
