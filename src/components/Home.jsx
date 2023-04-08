@@ -1,21 +1,22 @@
-import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Stack } from '@mui/material'
+import React from 'react'
+import Navbar from './Navbar'
+import Feed from './Home/Feed'
+import SideBar from './Sidebar'
+import RightBar from './Home/Rightbar'
+
 
 const Home = () => {
   return (
-  <Box>
-    <Grid container >
-        <Grid sx={3}>
-            <h1>Rightbar</h1>
-        </Grid>
-        <Grid sx={9}>
-            <Grid container >
-                <h1>Navbar</h1>
-            </Grid>
-        </Grid>
-    </Grid>
-  </Box>
+    <Box>
+      <Navbar/>
+      <Stack direction="row" spacing={2} justifyContent="space-between">
+        <SideBar />
+        <Feed />
+        <RightBar />
+      </Stack>
+    </Box>
   )
-};
+}
 
-export default Home;
+export default Home
