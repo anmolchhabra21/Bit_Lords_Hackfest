@@ -23,9 +23,9 @@
   margin-right: auto;
 }
 
-.nameRole img {
-  width: 50%;
-  border-radius: 10px;
+.nameRoleImage {
+  width: 100px;
+  /* border-radius: 50%; */
   margin-left: 0px;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .applyBtn {
-  margin: -10px 100px;
+  margin: -10px 10px;
 }
 
 .deadLine h3 {
