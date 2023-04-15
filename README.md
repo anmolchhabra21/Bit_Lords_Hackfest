@@ -79,9 +79,8 @@ can save on subscription fees, commissions, and other associated costs.
 cloud-based infrastructure to reduce the upfront investment in hardware
 and software. This can include using popular frameworks and libraries like
 ReactJS or AngularJS for front-end development, and cloud-based databases
-
 like Amazon Web Services (AWS) or Google Cloud Platform (GCP) for back-
-end development. // Ye Theek nahi lag Raha
+end development. 
 
 # Features
 ### Student Features:
